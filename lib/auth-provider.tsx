@@ -1,5 +1,5 @@
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  // Просто обёртка, сессия загружается автоматически через expoClient плагин
+  // Thin wrapper; session is loaded automatically via the expoClient plugin.
   return <>{children}</>;
 }

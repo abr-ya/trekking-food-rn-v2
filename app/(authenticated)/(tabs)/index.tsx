@@ -13,7 +13,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Hello, World!</Text>
+      <Text>Hello, Food!</Text>
       <Image
         source={localImage}
         style={{ width: 240, height: 240, marginTop: 16 }}

@@ -10,8 +10,8 @@ export default function AuthenticatedLayout() {
     if (session.isPending) return;
 
     if (!session.data) {
-      // Нет сессии — на login
-      console.log('[Authenticated] Нет сессии → /login');
+      // No session — go to login
+      console.log('[Authenticated] No session → /login');
       router.replace('/login');
     }
   }, [session.data, session.isPending]);
@@ -24,7 +24,7 @@ export default function AuthenticatedLayout() {
     );
   }
 
-  // Показываем контент только если есть сессия
+  // Render protected content only when a session exists
   if (!session.data) {
     return (
       <View style={styles.loading}>

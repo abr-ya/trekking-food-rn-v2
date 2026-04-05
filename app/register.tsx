@@ -44,7 +44,7 @@ export default function RegisterScreen() {
 
     setLoading(true);
     try {
-      const { data, error } = await signUp.email({
+      const { error } = await signUp.email({
         email,
         password,
         name: email.split('@')[0],
@@ -58,7 +58,7 @@ export default function RegisterScreen() {
       Alert.alert('Success', 'Account created! Please sign in.', [
         { text: 'OK', onPress: () => router.replace('/login') },
       ]);
-    } catch (err) {
+    } catch {
       Alert.alert('Error', 'Failed to connect to the server');
     } finally {
       setLoading(false);

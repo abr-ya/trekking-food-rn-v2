@@ -37,7 +37,7 @@ export default function LoginScreen() {
 
     setLoading(true);
     try {
-      const { data, error } = await signIn.email({
+      const { error } = await signIn.email({
         email,
         password,
       });
@@ -48,7 +48,7 @@ export default function LoginScreen() {
       }
 
       router.replace('/');
-    } catch (err) {
+    } catch {
       Alert.alert('Error', 'Failed to connect to the server');
     } finally {
       setLoading(false);

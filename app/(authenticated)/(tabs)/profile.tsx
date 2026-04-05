@@ -9,7 +9,7 @@ export default function Profile() {
   const handleSignOut = async () => {
     try {
       await signOut();
-    } catch (err) {
+    } catch {
       // Redirect even if sign out fails
     }
     router.replace("/login");
