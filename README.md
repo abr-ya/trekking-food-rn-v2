@@ -1,50 +1,90 @@
-# Welcome to your Expo app 👋
+# trekking-food-v2
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Mobile app for planning meals during trekking trips — meal planning, shopping lists, and food distribution among participants.
 
-## Get started
+## Features
 
-1. Install dependencies
+- 🍲 **Meal planning** — plan breakfast, lunch, and dinner for the entire trekking route
+- 📝 **Shopping lists** — auto-generated grocery lists based on planned meals
+- 🎒 **Food distribution** — distribute products and food among trekking participants
+- 📊 **Calorie tracking** — monitor calorie intake for each participant
 
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-2. Start the app
+- **Framework:** Expo (React Native)
+- **Navigation:** Expo Router (file-based routing)
+- **Authentication:** Better Auth (email/password)
+- **State management:** nanostores
+- **TypeScript**
 
-   ```bash
-   npx expo start
-   ```
+## Project Structure
 
-In the output, you'll find options to open the app in a
+```
+app/
+├── login.tsx                          ← Login screen
+├── register.tsx                       ← Registration screen
+├── _layout.tsx                        ← Root layout
+├── (authenticated)/                   ← Protected area
+│   ├── _layout.tsx                    ← Auth-guard
+│   └── (tabs)/                        ← Tab navigation
+│       ├── index.tsx                  ← Home screen
+│       └── profile.tsx                ← User profile
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+lib/
+├── auth-client.ts                     ← Better Auth client
+└── use-session.ts                     ← Session hook
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Documentation
 
-## Learn more
+### Auth
 
-To learn more about developing your project with Expo, look at the following resources:
+- **Russian:** `docs/better-auth-integration_ru.md`
+- **English:** `docs/better-auth-integration_en.md`
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Getting Started
 
-## Join the community
+### Prerequisites
 
-Join our community of developers creating universal apps.
+- Node.js
+- Android Studio (for Android emulator)
+- Expo CLI
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Run the app
+
+```bash
+npx expo start --clear
+```
+
+### Build APK
+
+```bash
+npm run apk          # Debug
+npm run apk:release  # Release
+```
+
+### First-time setup (after cloning)
+
+```bash
+npx expo run:android   # Build dev APK with native modules
+```
+
+## Environment Variables
+
+Create a `.env` file in the project root:
+
+```
+EXPO_PUBLIC_API_URL=http://your-backend-server-url
+```
+
+> **Note:** For Android emulator, use `10.0.2.2` instead of `localhost` to reach your computer.
+
+## License
+
+Private project.

@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "rn-gallery-26",
-    "slug": "rn-gallery-26",
+    "name": "trekking-food-v2",
+    "slug": "trekking-food-v2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "rngallery26",
+    "scheme": "trekkingfoodv2",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.rngallery26"
+      "bundleIdentifier": "com.anonymous.trekkingfoodv2"
     },
     "android": {
       "adaptiveIcon": {
@@ -21,7 +21,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.rngallery26"
+      "package": "com.anonymous.trekkingfoodv2"
     },
     "web": {
       "output": "static",
@@ -40,7 +40,8 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,
