@@ -1,8 +1,11 @@
+import { Ionicons } from "@expo/vector-icons";
 import {
   useProducts,
   type Product
 } from "@hooks/use-product-data";
-import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
+import React, { useLayoutEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -13,13 +16,25 @@ import {
   View,
 } from "react-native";
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({
+  product,
+  onEdit,
+}: {
+  product: Product;
+  onEdit: (id: string) => void;
+}) {
   return (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
         <Text style={styles.productName} numberOfLines={2}>
           {product.name}
         </Text>
+        <TouchableOpacity
+          onPress={() => onEdit(product.id)}
+          style={styles.editIcon}
+        >
+          <Ionicons name="create-outline" size={20} color="#0066cc" />
+        </TouchableOpacity>
       </View>
       {product.category && (
         <Text style={styles.category}>{product.category.name}</Text>
@@ -49,6 +64,8 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 export default function Products() {
+  const router = useRouter();
+  const navigation = useNavigation();
   const [search, setSearch] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
 
@@ -61,6 +78,24 @@ export default function Products() {
   const handleSearch = () => {
     setSubmittedSearch(search.trim());
   };
+
+  const handleEdit = (id: string) => {
+    router.push(`/product-form?id=${id}`);
+  };
+
+  // Header "+" button
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => router.push("/product-form")}
+          style={{ marginRight: 16 }}
+        >
+          <Ionicons name="add-circle" size={28} color="#0066cc" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, router]);
 
   return (
     <View style={styles.container}>
@@ -108,7 +143,9 @@ export default function Products() {
         <FlatList
           data={data.data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <ProductCard product={item} />}
+          renderItem={({ item }) => (
+            <ProductCard product={item} onEdit={handleEdit} />
+          )}
           contentContainerStyle={styles.listContent}
         />
       )}
@@ -209,7 +246,13 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   cardHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     marginBottom: 4,
+  },
+  editIcon: {
+    padding: 4,
   },
   productName: {
     fontSize: 18,

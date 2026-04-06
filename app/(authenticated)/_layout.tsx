@@ -34,8 +34,20 @@ export default function AuthenticatedLayout() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Stack.Screen name="(tabs)" />
+      <Stack.Screen
+        name="product-form"
+        options={{
+          headerShown: true,
+          title: "Product",
+          headerTintColor: "#0066cc",
+        }}
+      />
     </Stack>
   );
 }
