@@ -41,15 +41,26 @@ export const authClient = createAuthClient({
 
 export const { signIn, signUp, signOut, $fetch } = authClient;
 
-/** Authenticated JSON GET to the API server root (session cookie from Expo plugin). */
-export async function fetchApiJson<T>(path: string): Promise<T> {
+export interface FetchApiOptions {
+  method?: string;
+  body?: string;
+}
+
+/** Authenticated JSON request to the API server (session cookie from Expo plugin). */
+export async function fetchApiJson<T>(
+  path: string,
+  options?: FetchApiOptions,
+): Promise<T> {
   const cookie = authClient.getCookie();
   const url = `${API_ORIGIN}${path.startsWith('/') ? path : `/${path}`}`;
   const res = await fetch(url, {
+    method: options?.method || 'GET',
     headers: {
+      'Content-Type': 'application/json',
       Accept: 'application/json',
       ...(cookie ? { Cookie: cookie } : {}),
     },
+    body: options?.body,
   });
   if (!res.ok) {
     const body = await res.text();

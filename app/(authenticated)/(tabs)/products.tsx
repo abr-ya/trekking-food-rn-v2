@@ -1,3 +1,7 @@
+import {
+  useProducts,
+  type Product
+} from "@hooks/use-product-data";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -8,7 +12,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useProducts, type Product } from "../../../lib/use-food-data";
 
 function ProductCard({ product }: { product: Product }) {
   return (
