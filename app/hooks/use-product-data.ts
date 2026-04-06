@@ -108,13 +108,14 @@ export function useProducts(params: UseProductsParams = {}) {
 
 export interface CreateProductInput {
   name: string;
-  product_category_id: string;
+  productCategoryId: string;
   kkal: number;
   proteins?: number;
   fats?: number;
   carbohydrates?: number;
   price?: number;
-  is_vegetarian?: boolean;
+  isVegetarian?: boolean;
+  isCommon?: boolean;
 }
 
 export type UpdateProductInput = Partial<CreateProductInput>;

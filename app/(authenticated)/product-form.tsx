@@ -1,24 +1,24 @@
 import {
-    useCreateProduct,
-    useProduct,
-    useProductCategories,
-    useUpdateProduct,
+  useCreateProduct,
+  useProduct,
+  useProductCategories,
+  useUpdateProduct,
 } from "@hooks/use-product-data";
 import { useNavigation } from "@react-navigation/native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Alert,
-    FlatList,
-    Modal,
-    ScrollView,
-    StyleSheet,
-    Switch,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 export default function ProductForm() {
@@ -86,14 +86,17 @@ export default function ProductForm() {
 
     const payload = {
       name: name.trim(),
-      product_category_id: categoryId,
+      productCategoryId: String(categoryId),
       kkal: Number(kkal),
       proteins: Number(proteins) || 0,
       fats: Number(fats) || 0,
       carbohydrates: Number(carbohydrates) || 0,
       price: Number(price) || 0,
-      is_vegetarian: isVegetarian,
+      isVegetarian: isVegetarian,
+      isCommon: false,
     };
+
+    console.log("[ProductForm] Sending payload:", JSON.stringify(payload));
 
     try {
       if (isEditMode && params.id) {
