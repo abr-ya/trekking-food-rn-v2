@@ -126,4 +126,4 @@ Append-only. Number = order implementation started. Next number = **0002**.
 
 | # | Slug | Capability | Started (YYYY-MM-DD) | Change / Status |
 |---|------|------------|----------------------|-----------------|
-| 0001 | products-list-pagination | products | 2026-08-26 | feat-0001-products-list-pagination / in-progress |
+| 0001 | products-list-pagination | products | 2026-08-26 | 2026-08-26-feat-0001-products-list-pagination / archived |

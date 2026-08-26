@@ -20,7 +20,7 @@ feature will ship in this client.
 
 | Capability | Status | Spec | What it covers | Key code |
 |---|---|---|---|---|
-| `products` | 🟡 | ⬜ | Product catalog: nutrition (kkal/proteins/fats/carbs), price, vegetarian flag, category, personal vs. shared (`isCommon`); list with pagination + search; create/edit form. Hook supports category filter + delete; list UI filter / delete UX may still be incomplete vs web | `app/hooks/use-product-data.ts`, `app/(authenticated)/(tabs)/products.tsx`, `app/(authenticated)/product-form.tsx` |
+| `products` | 🟡 | ✅ | Product catalog: nutrition (kkal/proteins/fats/carbs), price, vegetarian flag, category, personal vs. shared (`isCommon`); list with pagination + search; create/edit form. Accepted spec covers list search + explicit page controls; form / category filter / delete UX may still be incomplete vs web | `app/hooks/use-product-data.ts`, `app/(authenticated)/(tabs)/products.tsx`, `app/(authenticated)/product-form.tsx` |
 | `recipes` | ⬜ | ⬜ | Recipes as sets of ingredients (product + grams/serving); create, list, detail; edit metadata; add/edit ingredients | — |
 | `categories` | 🟡 | ⬜ | Product categories: read for pickers (`GET /product-categories`). Full category CRUD UI (create/edit/delete, multi-filter) not in mobile yet | `useProductCategories` in `app/hooks/use-product-data.ts`, category picker in `product-form.tsx` |
 | `hikings` | ⬜ | ⬜ | Trip entity: days/members/vegetarians, create, list (paginated + search), detail, group-size change with pack recompute | — |
