@@ -68,14 +68,22 @@ export default function Products() {
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
+  const [page, setPage] = useState(1);
 
   const { data, isLoading, error, refetch } = useProducts({
     search: submittedSearch || undefined,
-    page: 1,
+    page,
     limit: 20,
+    keepPreviousPage: true,
   });
 
+  const totalPages = data?.meta.totalPages ?? 1;
+  const currentPage = data?.meta.page ?? page;
+  const canGoPrevious = page > 1;
+  const canGoNext = page < totalPages;
+
   const handleSearch = () => {
+    setPage(1);
     setSubmittedSearch(search.trim());
   };
 
@@ -124,7 +132,7 @@ export default function Products() {
         </View>
       )}
 
-      {isLoading && (
+      {isLoading && !data && (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#0066cc" />
           <Text style={styles.loadingText}>Loading...</Text>
@@ -134,13 +142,14 @@ export default function Products() {
       {data?.meta != null && (
         <View style={styles.resultInfo}>
           <Text style={styles.resultText}>
-            {`Found: ${data.meta.total} products (page ${data.meta.page}/${data.meta.totalPages})`}
+            {`Found: ${data.meta.total} products`}
           </Text>
         </View>
       )}
 
       {data?.data && data.data.length > 0 && (
         <FlatList
+          style={styles.list}
           data={data.data}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
@@ -153,6 +162,48 @@ export default function Products() {
       {data != null && (data.data?.length ?? 0) === 0 && !isLoading && (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyText}>Nothing found</Text>
+        </View>
+      )}
+
+      {data?.meta != null && (
+        <View style={styles.paginationBar}>
+          <TouchableOpacity
+            style={[
+              styles.paginationButton,
+              !canGoPrevious && styles.paginationButtonDisabled,
+            ]}
+            onPress={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={!canGoPrevious}
+          >
+            <Text
+              style={[
+                styles.paginationButtonText,
+                !canGoPrevious && styles.paginationButtonTextDisabled,
+              ]}
+            >
+              Previous
+            </Text>
+          </TouchableOpacity>
+          <Text style={styles.paginationLabel}>
+            {`Page ${currentPage} of ${totalPages}`}
+          </Text>
+          <TouchableOpacity
+            style={[
+              styles.paginationButton,
+              !canGoNext && styles.paginationButtonDisabled,
+            ]}
+            onPress={() => setPage((p) => p + 1)}
+            disabled={!canGoNext}
+          >
+            <Text
+              style={[
+                styles.paginationButtonText,
+                !canGoNext && styles.paginationButtonTextDisabled,
+              ]}
+            >
+              Next
+            </Text>
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -232,9 +283,46 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#666",
   },
+  list: {
+    flex: 1,
+  },
   listContent: {
     padding: 16,
     gap: 12,
+  },
+  paginationBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: "#fff",
+    borderTopWidth: 1,
+    borderTopColor: "#e0e0e0",
+  },
+  paginationButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    backgroundColor: "#0066cc",
+    minWidth: 88,
+    alignItems: "center",
+  },
+  paginationButtonDisabled: {
+    backgroundColor: "#c5d8ef",
+  },
+  paginationButtonText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  paginationButtonTextDisabled: {
+    color: "#f0f4fa",
+  },
+  paginationLabel: {
+    fontSize: 14,
+    color: "#555",
+    fontWeight: "500",
   },
   card: {
     backgroundColor: "#fff",

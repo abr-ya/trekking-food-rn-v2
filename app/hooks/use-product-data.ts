@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { fetchApiJson } from "../../lib/auth-client";
 
 export interface ProductCategory {
@@ -79,10 +84,18 @@ export interface UseProductsParams {
   limit?: number;
   search?: string;
   categoryId?: string;
+  /** Keep prior page visible while the next page fetch is in flight. */
+  keepPreviousPage?: boolean;
 }
 
 export function useProducts(params: UseProductsParams = {}) {
-  const { page = 1, limit = 20, search, categoryId } = params;
+  const {
+    page = 1,
+    limit = 20,
+    search,
+    categoryId,
+    keepPreviousPage = false,
+  } = params;
 
   return useQuery<ProductsResponse>({
     queryKey: ["products", page, limit, search, categoryId],
@@ -101,6 +114,7 @@ export function useProducts(params: UseProductsParams = {}) {
       return normalizeProductsResponse(raw, page, limit);
     },
     staleTime: 1000 * 60 * 5, // 5 minutes
+    ...(keepPreviousPage ? { placeholderData: keepPreviousData } : {}),
   });
 }
 
