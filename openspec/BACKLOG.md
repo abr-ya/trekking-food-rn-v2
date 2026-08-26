@@ -122,8 +122,8 @@ Candidates, no numbers. Pick by meaning.
 
 ## Build log
 
-Append-only. Number = order implementation started. Next number = **0001**.
+Append-only. Number = order implementation started. Next number = **0002**.
 
 | # | Slug | Capability | Started (YYYY-MM-DD) | Change / Status |
 |---|------|------------|----------------------|-----------------|
-| *(empty — first pull assigns `0001`)* | | | | |
+| 0001 | products-list-pagination | products | 2026-08-26 | feat-0001-products-list-pagination / in-progress |
