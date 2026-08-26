@@ -1,0 +1,34 @@
+schema: spec-driven
+
+# Project context — shown to AI when creating OpenSpec artifacts.
+context: |
+  Trekking Food mobile client (this repo only — backend is separate).
+  Stack: Expo SDK 54, React Native 0.81, React 19, TypeScript, Expo Router,
+  Better Auth (@better-auth/expo + expo-secure-store), TanStack React Query.
+  Layout: file-based routes in app/; auth at app/login.tsx & app/register.tsx;
+  protected zone app/(authenticated)/ with tabs; shared auth/API in lib/;
+  data hooks in app/hooks/ (@hooks/*).
+  API: EXPO_PUBLIC_API_URL is server root; auth at /api/auth; REST via
+  fetchApiJson (await getCookie). Android emulator → host via 10.0.2.2.
+  Dev requires expo-dev-client / native rebuild after native module changes.
+  UI copy in English. Conventional commits with short capability scopes
+  (e.g. feat(products): …), not build numbers.
+  Domain: trekking meal planning, products, shopping lists, food distribution,
+  calorie tracking (see docs/ and openspec/ when present).
+
+# Per-artifact rules (optional)
+# rules:
+#   proposal:
+#     - Keep proposals under 500 words
+#     - Always include a "Non-goals" section
+#   tasks:
+#     - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# operations:
+#   apply:
+#     guidance:
+#       - Keep test summaries concise
+#   archive:
+#     guidance:
+#       - Summarize the archive outcome before finishing
