@@ -1,0 +1,11 @@
+---
+description: Never create git commits without the user's explicit confirmation
+alwaysApply: true
+---
+
+# Git commits require explicit confirmation
+
+- Do **not** run `git commit` (or amend/push) unless the user has **explicitly** confirmed that they want this commit created now.
+- Proposing a commit message, drafting a message, or saying "давай закоммитим" **together with** "предложи message" is **not** enough by itself if they only asked for a message — when they ask to **propose** a message, only propose; wait for a clear go-ahead such as "коммить", "да, коммить с этим message", "commit it".
+- Safe default: show `git status` / planned files + proposed message → **stop** → commit only after confirmation.
+- Never commit `.env` or secrets.
