@@ -31,7 +31,7 @@ feature will ship in this client.
 | `admin-features` | ⬜ | ⬜ | Admin CRUD for marketing/roadmap "features" (web home/landing). **Optional on mobile** — may stay web-only unless product decides otherwise | — |
 | `navigation` | 🟡 | ⬜ | Tab navigator: Home / Products / Profile (Expo Router). Not the web top-menu / admin nav model | `app/(authenticated)/(tabs)/_layout.tsx`, `app/_layout.tsx` |
 | `i18n` | ⬜ | ⬜ | UI language switching (`en`/`ru`) with persisted locale. Mobile UI strings are English today | — |
-| `native-release` | 🟡 | ⬜ | Local version bump + release APK for phone-only use (no Metro / no EAS). Default proposes minor bump with confirm; major/patch via flags | `scripts/release-apk.sh`, `npm run release:apk` |
+| `native-release` | ✅ | ✅ | Local version bump + release APK for phone-only use (no Metro / no EAS). Default proposes minor bump with confirm; major/patch via flags; cleartext HTTP allowed for phone API URLs | `scripts/release-apk.sh`, `npm run release:apk` |
 
 ## Known planned / gaps
 
