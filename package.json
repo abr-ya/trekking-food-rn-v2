@@ -1,7 +1,7 @@
 {
   "name": "trekking-food-v2",
   "main": "expo-router/entry",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "apk": "cd android && ./gradlew assembleDebug -x lint -x test",
-    "apk:release": "cd android && ./gradlew assembleRelease -x lint -x test"
+    "apk:release": "cd android && ./gradlew assembleRelease -x lint -x test",
+    "release:apk": "bash scripts/release-apk.sh"
   },
   "dependencies": {
     "@better-auth/expo": "^1.5.6",

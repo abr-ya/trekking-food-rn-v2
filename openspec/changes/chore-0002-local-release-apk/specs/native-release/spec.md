@@ -61,8 +61,8 @@ The release workflow MUST use `EXPO_PUBLIC_API_URL` from the environment (or an 
 - **THEN** the workflow proceeds after a warning
 
 ### Requirement: Install guidance is printed after a successful build
-After a successful release APK build, the workflow MUST print concise install guidance suitable for a physical device (ADB install and/or copying the APK), and MUST state that Metro on a computer is not required to run the installed app.
+After a successful release APK build, the workflow MUST copy the APK to a filename that includes the marketing version (e.g. `trekking-food-v2-1.1.1.apk`), MUST print that path, and MUST print concise install guidance suitable for a physical device (ADB install and/or copying the APK), stating that Metro on a computer is not required to run the installed app.
 
 #### Scenario: Post-build output
 - **WHEN** the release APK build completes successfully
-- **THEN** the console shows the APK path and short install notes including that the app does not need Metro
+- **THEN** the console shows a versioned APK path (marketing version in the filename) and short install notes including that the app does not need Metro
