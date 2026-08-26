@@ -100,6 +100,8 @@ npm run release:apk -- --major
 npm run release:apk -- --patch --yes
 ```
 
+**HTTP API:** release builds use `android.usesCleartextTraffic: true` in `app.json` so the phone can call `http://…` (without this, Android blocks cleartext and login shows “Failed to connect to the server”). Prefer HTTPS in production when you can.
+
 **Signing:** the local `android/` release build may use the debug keystore (fine for personal sideloads). For a dedicated release keystore, configure `signingConfigs` in `android/app/build.gradle` — do **not** commit `*.jks` / `release.keystore`.
 
 **Install:**

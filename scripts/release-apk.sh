@@ -241,6 +241,44 @@ fs.writeFileSync(path, text);
 ' "$version" "$code" "$gradle"
 }
 
+# Android blocks plain HTTP unless usesCleartextTraffic is enabled.
+ensure_cleartext_for_http() {
+  local url="$1"
+  [[ "$url" == http://* ]] || return 0
+
+  node -e '
+const fs = require("fs");
+const appPath = "app.json";
+const app = JSON.parse(fs.readFileSync(appPath, "utf8"));
+app.expo = app.expo || {};
+app.expo.android = app.expo.android || {};
+if (app.expo.android.usesCleartextTraffic !== true) {
+  app.expo.android.usesCleartextTraffic = true;
+  fs.writeFileSync(appPath, JSON.stringify(app, null, 2) + "\n");
+  console.log("Set expo.android.usesCleartextTraffic=true (required for http:// API)");
+}
+'
+  local manifest="$ROOT/android/app/src/main/AndroidManifest.xml"
+  if [[ -f "$manifest" ]] && ! grep -q 'usesCleartextTraffic="true"' "$manifest"; then
+    node -e '
+const fs = require("fs");
+const path = process.argv[1];
+let text = fs.readFileSync(path, "utf8");
+if (/android:usesCleartextTraffic=/.test(text)) {
+  text = text.replace(/android:usesCleartextTraffic="[^"]*"/, "android:usesCleartextTraffic=\"true\"");
+} else if (/<application\b[^>]*>/.test(text)) {
+  text = text.replace(/<application\b/, "<application android:usesCleartextTraffic=\"true\"");
+} else {
+  console.error("error: could not patch AndroidManifest.xml for cleartext");
+  process.exit(1);
+}
+fs.writeFileSync(path, text);
+console.log("Patched AndroidManifest.xml usesCleartextTraffic=true");
+' "$manifest"
+  fi
+}
+
+ensure_cleartext_for_http "$API_URL"
 write_versions "$NEW_VERSION" "$NEW_CODE"
 sync_gradle "$NEW_VERSION" "$NEW_CODE"
 echo "Updated app.json, package.json, and android/app/build.gradle"
