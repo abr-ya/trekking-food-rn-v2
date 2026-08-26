@@ -34,6 +34,7 @@ export const authClient = createAuthClient({
   baseURL: authBaseURL,
   plugins: [
     expoClient({
+      scheme: 'trekkingfoodv2',
       storage: SecureStore,
     }),
   ],
@@ -51,14 +52,15 @@ export async function fetchApiJson<T>(
   path: string,
   options?: FetchApiOptions,
 ): Promise<T> {
-  const cookie = authClient.getCookie();
+  // getCookie is async in @better-auth/expo — must await or Cookie header is empty/wrong
+  const cookie = await authClient.getCookie();
   const url = `${API_ORIGIN}${path.startsWith('/') ? path : `/${path}`}`;
   const res = await fetch(url, {
     method: options?.method || 'GET',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      ...(cookie ? { Cookie: cookie } : {}),
+      ...(cookie ? { cookie } : {}),
     },
     body: options?.body,
   });
