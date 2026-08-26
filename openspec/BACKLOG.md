@@ -122,8 +122,9 @@ Candidates, no numbers. Pick by meaning.
 
 ## Build log
 
-Append-only. Number = order implementation started. Next number = **0002**.
+Append-only. Number = order implementation started. Next number = **0003**.
 
 | # | Slug | Capability | Started (YYYY-MM-DD) | Change / Status |
 |---|------|------------|----------------------|-----------------|
 | 0001 | products-list-pagination | products | 2026-08-26 | 2026-08-26-feat-0001-products-list-pagination / archived |
+| 0002 | local-release-apk | native-release | 2026-08-26 | 2026-08-26-chore-0002-local-release-apk / archived |
